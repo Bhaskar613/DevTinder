@@ -2,17 +2,28 @@ const express=require("express")
 
 const app=express()
 
-app.use("/hello",(req,res)=>{
-    res.send("hlo this is at server 7777")
-})
+const {authAdmin, authUser} = require("./middlewares/auth")
 
-app.use("/test",(req,res)=>{
-    res.send("hlo this charan at server 7777")
-})
 
-app.use((req,res)=>{
-    res.send("hlo this bhaskar at server 7777")
-})
+
+app.use("/admin",authAdmin)
+
+app.get("/admin/getalldata",(req,res,next)=>{
+   res.send("get all data")
+   
+}
+
+)
+
+app.get("/user",authUser,(req,res,next)=>{
+   res.send("sent all data")
+   
+}
+
+)
+
+
+
 
 app.listen(7777,()=>{
     console.log("server run at 7777")
